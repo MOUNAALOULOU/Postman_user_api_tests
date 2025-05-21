@@ -1,0 +1,287 @@
+{
+	"info": {
+		"_postman_id": "5c09bf57-2f0f-421b-b617-e4911e22e790",
+		"name": "User Collection",
+		"description": "UserCollection – Tests API Utilisateurs\n\nCette collection contient l’ensemble des requêtes API liées à la gestion des utilisateurs de l'API REST publique test accessible via une interface Swagger([https://fakerestapi.azurewebsites.net/)](https://fakerestapi.azurewebsites.net/)\n\nElle permet de tester les opérations suivantes :  \n• GET : Récupération de la liste des utilisateurs  \n• POST : Création d’un nouvel utilisateur  \n• PUT : Mise à jour d’un utilisateur existant  \n• DELETE : Suppression d’un utilisateur\n\nElle est utilisée dans le cadre d’un exercice de validation de scénarios de test CRUD sur des données utilisateurs fictives.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44858060",
+		"_collection_link": "https://lively-comet-6672207.postman.co/workspace/5ab48b9f-80b6-4ad2-841c-544ca701c4ca/collection/44858060-5c09bf57-2f0f-421b-b617-e4911e22e790?action=share&source=collection_link&creator=44858060"
+	},
+	"item": [
+		{
+			"name": "Users ID 4",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Users/4",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Users",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 21,\r\n  \"userName\": \"mouna\",\r\n  \"password\": \"@test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Users",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User ID 9",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Users/9",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Users",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 8,\r\n  \"userName\": \"mouna\",\r\n  \"password\": \"@API\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Users/8",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Users",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Users/7",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Users",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User with dynamic ID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Générer un ID aléatoire entre 100 et 9999\r",
+							"let id = Math.floor(Math.random() * 9900) + 100;\r",
+							"pm.environment.set(\"randomUserId\", id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Vérifier que le statut est 200 ou 201\r",
+							"pm.test(\"Statut 200 ou 201\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+							"});\r",
+							"\r",
+							"// Vérifier que la réponse contient bien l’ID envoyé\r",
+							"let jsonData = pm.response.json();\r",
+							"pm.test(\"ID correspond à celui généré\", function () {\r",
+							"    pm.expect(jsonData.id).to.eql(parseInt(pm.environment.get(\"randomUserId\")));\r",
+							"});\r",
+							"\r",
+							"// Sauvegarder l'ID pour l'utiliser dans une requête GET ou DELETE ensuite\r",
+							"pm.environment.set(\"createdUserId\", jsonData.id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": {{randomUserId}},\r\n    \"userName\": \"mouna_{{randomUserId}}\",\r\n    \"password\": \"Test@123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Users",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users List",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fakerestapi.azurewebsites.net/api/v1/Users",
+					"protocol": "https",
+					"host": [
+						"fakerestapi",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
